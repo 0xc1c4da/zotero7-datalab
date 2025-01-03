@@ -30,33 +30,62 @@ export async function registerPrefsScripts(_window: Window) {
 async function updatePrefsUI() {
   if (!addon.data.prefs?.window) return;
   
-  // Get the current endpoint value
-  const prefKey = `extensions.zotero.${config.addonRef}.endpoint`;
-  const currentEndpoint = (Zotero.Prefs.get(prefKey) as string) || "https://sci-hub.usualwant.com/";
+  // Get the current API key value
+  const apiKeyPref = `extensions.zotero.${config.addonRef}.apikey`;
+  const currentApiKey = (Zotero.Prefs.get(apiKeyPref) as string) || "";
   
-  // Set the input value
-  const input = addon.data.prefs.window.document.querySelector(
-    `#zotero-prefpane-${config.addonRef}-endpoint`
+  // Set the API key input value
+  const apiKeyInput = addon.data.prefs.window.document.querySelector(
+    `#zotero-prefpane-${config.addonRef}-apikey`
   ) as HTMLInputElement;
   
-  if (input) {
-    input.value = currentEndpoint;
+  if (apiKeyInput) {
+    apiKeyInput.value = currentApiKey;
+  }
+
+  // Get and set the current download images value
+  const downloadImagesPref = `extensions.zotero.${config.addonRef}.downloadImages`;
+  const currentDownloadImages = Zotero.Prefs.get(downloadImagesPref);
+  ztoolkit.log(`Initial download images value: ${currentDownloadImages} (type: ${typeof currentDownloadImages})`);
+  
+  const downloadImagesCheckbox = addon.data.prefs.window.document.querySelector(
+    `#zotero-prefpane-${config.addonRef}-download-images`
+  ) as HTMLInputElement;
+  
+  if (downloadImagesCheckbox) {
+    downloadImagesCheckbox.checked = currentDownloadImages === true;
+    ztoolkit.log(`Set checkbox checked state to: ${downloadImagesCheckbox.checked}`);
   }
 }
 
 function bindPrefEvents() {
   if (!addon.data.prefs?.window) return;
 
-  const prefKey = `extensions.zotero.${config.addonRef}.endpoint`;
-  const input = addon.data.prefs.window.document.querySelector(
-    `#zotero-prefpane-${config.addonRef}-endpoint`
+  // Bind API key input
+  const apiKeyPref = `extensions.zotero.${config.addonRef}.apikey`;
+  const apiKeyInput = addon.data.prefs.window.document.querySelector(
+    `#zotero-prefpane-${config.addonRef}-apikey`
   ) as HTMLInputElement;
 
-  if (input) {
-    input.addEventListener("change", (e) => {
+  if (apiKeyInput) {
+    apiKeyInput.addEventListener("change", (e) => {
       const value = (e.target as HTMLInputElement).value;
-      Zotero.Prefs.set(prefKey, value);
-      ztoolkit.log(`Updated endpoint to: ${value}`);
+      Zotero.Prefs.set(apiKeyPref, value);
+      ztoolkit.log(`Updated API key`);
+    });
+  }
+
+  // Bind download images checkbox
+  const downloadImagesPref = `extensions.zotero.${config.addonRef}.downloadImages`;
+  const downloadImagesCheckbox = addon.data.prefs.window.document.querySelector(
+    `#zotero-prefpane-${config.addonRef}-download-images`
+  ) as HTMLInputElement;
+
+  if (downloadImagesCheckbox) {
+    downloadImagesCheckbox.addEventListener("change", (e) => {
+      const checked = (e.target as HTMLInputElement).checked;
+      Zotero.Prefs.set(downloadImagesPref, checked);
+      ztoolkit.log(`Updated download images preference to: ${checked} (type: ${typeof checked})`);
     });
   }
 }

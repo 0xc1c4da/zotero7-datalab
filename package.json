@@ -1,23 +1,23 @@
 {
-  "name": "zotero7-scidb",
+  "name": "zotero7-datalab",
   "version": "0.0.2",
-  "description": "Zotero SciDB Downloader",
+  "description": "Zotero Datalab",
   "config": {
-    "addonName": "Zotero SciDB Downloader",
-    "addonID": "zotero7-scidb@dev.null",
-    "addonRef": "zoteroscidb",
-    "addonInstance": "ZoteroSciDB",
+    "addonName": "Zotero Datalab",
+    "addonID": "zotero7-datalab@dev.null",
+    "addonRef": "zoterodatalab",
+    "addonInstance": "ZoteroDatalab",
     "prefsPrefix": "extensions.zotero.${addonRef}"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/0xc1c4da/zotero7-scidb.git"
+    "url": "git+https://github.com/0xc1c4da/zotero7-datalab.git"
   },
   "author": "0xc1c4da",
   "bugs": {
-    "url": "https://github.com/0xc1c4da/zotero7-scidb/issues"
+    "url": "https://github.com/0xc1c4da/zotero7-datalab/issues"
   },
-  "homepage": "https://github.com/0xc1c4da/zotero7-scidb#readme",
+  "homepage": "https://github.com/0xc1c4da/zotero7-datalab#readme",
   "license": "AGPL-3.0-or-later",
   "scripts": {
     "start": "zotero-plugin serve",

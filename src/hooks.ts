@@ -1,7 +1,7 @@
 import { getString, initLocale } from "./utils/locale";
 import { registerPrefsScripts } from "./modules/preferenceScript";
 import { createZToolkit } from "./utils/ztoolkit";
-import { SciDBManager } from "./modules/scidb";
+import { DatalabManager } from "./modules/datalab";
 
 async function onStartup() {
   await Promise.all([
@@ -12,9 +12,9 @@ async function onStartup() {
 
   initLocale();
 
-  // Initialize SciDB preferences
-  const scidbManager = SciDBManager.getInstance();
-  scidbManager.registerPrefs();
+  // Initialize Datalab preferences
+  const datalabManager = DatalabManager.getInstance();
+  datalabManager.registerPrefs();
 
   // Register preferences pane
   Zotero.PreferencePanes.register({
@@ -38,9 +38,9 @@ async function onMainWindowLoad(win: Window): Promise<void> {
     `${addon.data.config.addonRef}-mainWindow.ftl`,
   );
 
-  // Register SciDB context menu
-  const scidbManager = SciDBManager.getInstance();
-  scidbManager.registerRightClickMenuItem();
+  // Register Datalab context menu
+  const datalabManager = DatalabManager.getInstance();
+  datalabManager.registerRightClickMenuItem();
 }
 
 async function onMainWindowUnload(win: Window): Promise<void> {
