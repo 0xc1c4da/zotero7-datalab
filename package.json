@@ -1,6 +1,6 @@
 {
   "name": "zotero7-datalab",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Zotero Datalab",
   "config": {
     "addonName": "Zotero Datalab",
